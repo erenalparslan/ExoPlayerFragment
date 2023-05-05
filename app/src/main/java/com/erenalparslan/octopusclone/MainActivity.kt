@@ -1,5 +1,6 @@
 package com.erenalparslan.octopusclone
 
+import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.WindowManager
@@ -14,4 +15,6 @@ class MainActivity : AppCompatActivity() {
             WindowManager.LayoutParams.FLAG_FULLSCREEN);*/
 
     }
+
+
 }

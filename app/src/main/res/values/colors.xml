@@ -12,4 +12,110 @@
     <color name="light_blue_A200">#FF40C4FF</color>
     <color name="light_blue_A400">#FF00B0FF</color>
     <color name="black_overlay">#66000000</color>
+
+
+
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#D81B60</color>
+
+
+
+    <color name="colorPrimary1">#4E342E</color>
+    <color name="colorPrimaryDark1">#3E2723</color>
+    <color name="colorPrimary2">#37474F</color>
+    <color name="colorPrimaryDark2">#263238</color>
+    <color name="colorPrimary3">#2E7D32</color>
+    <color name="colorPrimaryDark3">#1B5E20</color>
+
+    <color name="colorAccent1">#01a0b7</color>
+
+    <color name="off_white">#ECECEC</color>
+    <color name="greayrefcode_light">#F6F6F6</color>
+    <color name="greayrefcode_dark">#D7D7D7</color>
+    <color name="transparent">#00FFFFFF</color>
+    <color name="transparent_black">#80000000</color>
+    <color name="green">#38FD38</color>
+    <color name="red">#FA475C</color>
+    <color name="yellow">#e2aa32</color>
+    <color name="notification_red">#CC0000</color>
+    <color name="earned_coins_text">#fff212</color>
+    <color name="follow_text_color">#4A4A4A</color>
+    <color name="background_color">#ffffffff</color>
+    <!--<color name="blue">#33A2D9</color>old-->
+    <color name="blue">#ef7f1a</color>
+    <color name="bg_quiz">#10ef7f1a</color>
+    <color name="darkestblue">#003156</color>
+    <color name="light_blue">#6cd2ff</color>
+    <color name="light_opaque_blue">#95d4f9</color>
+
+
+    <color name="color_nav_items">#585858</color>
+    <color name="black_overlay_84">#d6000000</color>
+    <color name="light_black_font">#4B4B4B</color>
+
+    <color name="dullBlack">#161616</color>
+    <color name="overlay">#AA1C1C1C</color>
+    <color name="coins">#feac5b</color>
+    <color name="rewards_color">#ff8b00</color>
+    <color name="redeem">#05caa7</color>
+    <color name="congrats_bg">#fdf501</color>
+
+    <color name="intro1">#00afef</color>
+    <color name="intro2">#f28ab8</color>
+    <color name="intro3">#f19c70</color>
+    <color name="intro4">#3db5ad</color>
+
+    <color name="intro_color_2_1">#ff6f8f</color>
+    <color name="intro_color_2_2">#ff9b71</color>
+    <color name="intro_color_3_1">#ac80ff</color>
+    <color name="intro_color_3_2">#ac65ff</color>
+    <color name="intro_color_4_1">#3bdc9e</color>
+    <color name="intro_color_4_2">#2bc3ae</color>
+
+    <color name="study_concept_color">#29bfd3</color>
+    <color name="study_videos_color">#32c0a4</color>
+    <color name="pink">#f87fdc</color>
+    <color name="ibt_green">#30e162</color>
+    <color name="ibt_purple">#9a63ed</color>
+    <color name="ibt_red">#f36459</color>
+    <color name="hindi_active">#c4eef5</color>
+    <color name="english_active">#fdddcf</color>
+    <color name="congratulations_card">#5ec4b6</color>
+    <color name="thanks_card">#f7f3d7</color>
+
+    <color name="green_dark">#098930</color>
+
+    <color name="input_button_background">#e0e3e9</color>
+
+    <color name="msgListBackground">#c1f5eb</color>
+
+    <color name="dark_quiz_grey">#a9a9a9</color>
+    <color name="dark_quiz_light_grey">#C9C9C9</color>
+    <color name="dark_quiz_light_grey2">#80C9C9C9</color>
+    <color name="light_quiz_grey">#eeeeee</color>
+    <color name="feed_bg_grey">#E4E4E4</color>
+    <color name="dialogTitleColor">#474748</color>
+    //colors for MsgInput
+    <color name="shadowMsgInput">#828286</color>
+    <color name="color_tag">#b0e0fc</color>
+
+    <color name="feed_quiz_green">#d4edda</color>
+    <color name="feed_quiz_red">#ffcdd1</color>
+    <color name="feed_quiz_dark_green">#42b57c</color>
+    <color name="feed_quiz_dark_red">#eb5d69</color>
+    <color name="headersColor">#C3A0C8</color>
+    <color name="dark_gray">#282a2b</color>
+    <color name="dark_grey_two">#191a1b</color>
+    <color name="warm_grey">#7f7f7f</color>
+    <color name="warm_grey_two">#9c9c9c</color>
+    <color name="warm_grey_three">#8b8b8b</color>
+    <color name="warm_grey_four">#979797</color>
+    <color name="white60">#a0ffffff</color>
+    <color name="overlay_dark_40">#66000000</color>
+    <color name="overlay_light_90">#E6FFFFFF</color>
+    <color name="ayp_item_selected">#90FFFFFF</color>
+    <color name="bg_color">#FBFAF8</color>
+    <color name="lightTextGrey">#7F7F8A</color>
+    <color name="color_speed">#FF018786</color>
 </resources>

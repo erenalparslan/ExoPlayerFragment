@@ -4,4 +4,8 @@
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="track_selection_title">Select tracks</string>
+    <string name="error_unsupported_video">VIDEO</string>
+    <string name="error_unsupported_audio">AUDIO</string>
 </resources>
