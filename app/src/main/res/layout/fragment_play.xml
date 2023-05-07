@@ -42,7 +42,8 @@
         android:textSize="56sp"
         android:gravity="center"
         android:layout_gravity="center"
-        android:id="@+id/text"/>
+        android:id="@+id/text"
+        android:textColor="@color/green"/>
 </LinearLayout>
 
 
