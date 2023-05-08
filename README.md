@@ -22,7 +22,7 @@ ExoPlayer is easily customizable and has a flexible structure. Customized versio
    <li>ViewBinding</li>
  </ul>  
 
-#Screenshot
+# Screenshot
 
 
 ![Screenshot_2023-05-08_191813-removebg-preview](https://user-images.githubusercontent.com/100201401/236878943-2a5b3867-48a3-4587-8def-41b3a0d5baf2.png)
