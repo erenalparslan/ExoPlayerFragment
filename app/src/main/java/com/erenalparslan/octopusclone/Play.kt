@@ -1,7 +1,6 @@
 package com.erenalparslan.octopusclone
 
 
-import android.content.res.Configuration
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,19 +12,14 @@ import com.erenalparslan.octopusclone.databinding.FragmentPlayBinding
 import com.google.android.exoplayer2.*
 import com.google.android.exoplayer2.trackselection.TrackSelectionParameters
 import com.google.android.exoplayer2.ui.StyledPlayerView
-import com.google.android.exoplayer2.util.EventLogger
 
 
 class Play : Fragment() {
-    private var currentView: View? = null
-    private val KEY_TRACK_SELECTION_PARAMETERS = "track_selection_parameters"
-    private val KEY_ITEM_INDEX = "item_index"
-    private val KEY_POSITION = "position"
-    private val KEY_AUTO_PLAY = "auto_play"
 
     private var fragmentPlayBinding: FragmentPlayBinding? = null
-    private var exoPlayer: ExoPlayer? = null
-    private var playbackPosition = 0L
+    lateinit var exoPlayer: ExoPlayer
+    private var currentWindow: Int = 0
+    private var playbackPosition: Long = 0
     private var playWhenReady = true
     private var player: ExoPlayer? = null
     private var playerView: StyledPlayerView? = null
@@ -37,19 +31,25 @@ class Play : Fragment() {
     private var volumeBtn: ImageView? = null
     private var ivVideoQuality: ImageView? = null
 
-    private var exoPosition: TextView? = null
-    private var exoDuration: TextView? = null
 
-    private var lastSeenTracks: Tracks? = null
     var isShowingTrackSelectionDialog: Boolean = false
     private var trackSelectionParameters: TrackSelectionParameters? = null
 
-    private var startAutoPlay = false
-    private var startItemIndex = 0
-    private var startPosition: Long = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        exoPlayer = ExoPlayer.Builder(requireContext())
+            //   .setTrackSelector(trackSelector)
+            .build()
+        if (savedInstanceState != null) {
+            /*   trackSelectionParameters = TrackSelectionParameters.fromBundle(
+                   savedInstanceState.getBundle(KEY_TRACK_SELECTION_PARAMETERS)!!
+               )*/
+            currentWindow = savedInstanceState.getInt("current_window")
+            playbackPosition = savedInstanceState.getLong("playback_position")
+
+        }
 
     }
 
@@ -59,21 +59,9 @@ class Play : Fragment() {
     ): View? {
 
         // Inflate the layout for this fragment
-        currentView = inflater.inflate(R.layout.fragment_play, container, false)
-        return currentView
 
-    }
+        return inflater.inflate(R.layout.fragment_play, container, false)
 
-    override fun onConfigurationChanged(newConfig: Configuration) {
-        super.onConfigurationChanged(newConfig)
-   /*     println(currentView)
-        val inflater = LayoutInflater.from(requireContext())
-        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            currentView = inflater.inflate(R.layout.fragment_play, null)
-            //  activity?.setContentView(currentView)
-        } else {
-
-        }*/
     }
 
 
@@ -83,73 +71,36 @@ class Play : Fragment() {
         fragmentPlayBinding = binding
 
 
-        if (savedInstanceState != null) {
-            trackSelectionParameters = TrackSelectionParameters.fromBundle(
-                savedInstanceState.getBundle(KEY_TRACK_SELECTION_PARAMETERS)!!
-            )
-            startAutoPlay = savedInstanceState.getBoolean(KEY_AUTO_PLAY)
-            startItemIndex = savedInstanceState.getInt(KEY_ITEM_INDEX)
-
-        } else {
-            trackSelectionParameters =
-                TrackSelectionParameters.Builder( /* context= */requireContext()).build()
-
-        }
         preparePlayer()
+    }
+
+    fun playerSetter(player: ExoPlayer, mediaItem: MediaItem) {
+        player.setMediaItem(mediaItem, playbackPosition)
+        player.prepare()
+        player.play()
     }
 
 
     private fun preparePlayer() {
-        //  exoPlayer = ExoPlayer.Builder(this).build()
 
         playerView = requireActivity().findViewById(R.id.playerView)
-
-
         fullscreenButton = playerView?.findViewById(R.id.bt_full)
         exoPlay = playerView?.findViewById(R.id.exo_play)
         exoPause = playerView?.findViewById(R.id.exo_pause)
-        exoPosition = playerView?.findViewById(R.id.exo_position)
-        exoDuration = playerView?.findViewById(R.id.exo_duration)
         exoRestart = playerView?.findViewById(R.id.exo_restart)
         volumeBtn = playerView?.findViewById(R.id.volumebtn)
         ivVideoQuality = playerView?.findViewById(R.id.ivVideoQuality)
 
 
-        lastSeenTracks = Tracks.EMPTY
-        exoPlayer = ExoPlayer.Builder(requireContext())
-            //   .setTrackSelector(trackSelector)
-            .build()
-        exoPlayer!!.trackSelectionParameters = trackSelectionParameters!!
-        exoPlayer!!.addListener(PlayerEventListener())
-        exoPlayer!!.addAnalyticsListener(EventLogger())
-        exoPlayer?.playWhenReady = true
         fragmentPlayBinding?.playerView?.player = exoPlayer
-
+        exoPlayer!!.addListener(PlayerEventListener())
 
         val mediaItem = MediaItem.fromUri(URL)
 
-        exoPlayer?.addMediaItem(mediaItem)
-        exoPlayer?.seekTo(playbackPosition)
-        exoPlayer?.playWhenReady = playWhenReady
-        exoPlayer?.prepare()
-        //  playerView?.player = player
+        playerSetter(exoPlayer!!, mediaItem)
 
 
-/*        fun showQualitySelector() {
-            val trackSelector = exoPlayer?.trackSelector
-            if (trackSelector != null) {
-                val trackSelectionView = TrackSelectionView(requireContext())
-                trackSelectionView.setShowDisableOption(false)
-                val builder = AlertDialog.Builder(requireContext())
-                    .setTitle("Select Quality")
-                    .setView(trackSelectionView)
-                    .setPositiveButton(android.R.string.ok) { _, _ ->
-                        // OK button clicked, do something
-                    }
-                    .setNegativeButton(android.R.string.cancel, null)
-                builder.show()
-            }
-        }*/
+
 
         ivVideoQuality?.setOnClickListener {
 
@@ -161,6 +112,30 @@ class Play : Fragment() {
             trackSelectionDialog.show(requireActivity().supportFragmentManager,  /* tag= */null)
             /* }*/
         }
+
+        exoPause?.setOnClickListener {
+
+            exoPlayer?.playWhenReady = false
+            exoPause?.visibility = View.GONE
+            exoPlay?.visibility = View.VISIBLE
+
+        }
+        exoPlay?.setOnClickListener {
+            exoPlayer?.playWhenReady = true
+            exoPlay?.visibility = View.GONE
+            exoPause?.visibility = View.VISIBLE
+        }
+        volumeBtn?.setOnClickListener {
+            if (exoPlayer?.isDeviceMuted == false) {
+                exoPlayer?.isDeviceMuted = true
+                volumeBtn?.setImageResource(R.drawable.ic_volume_off)
+            } else {
+                exoPlayer?.isDeviceMuted = false
+                volumeBtn?.setImageResource(R.drawable.ic_volume_up)
+            }
+
+        }
+
     }
 
 
@@ -169,15 +144,10 @@ class Play : Fragment() {
             playbackPosition = player.currentPosition
             playWhenReady = player.playWhenReady
             player.release()
-            exoPlayer = null
+            // exoPlayer = null
         }
     }
 
-    private fun updateTrackSelectorParameters() {
-        if (player != null) {
-            trackSelectionParameters = player!!.trackSelectionParameters
-        }
-    }
 
     private class PlayerEventListener : Player.Listener {
         override fun onPlaybackStateChanged(playbackState: @Player.State Int) {
@@ -199,27 +169,10 @@ class Play : Fragment() {
 
 
 
+        outState.putInt("current_window", exoPlayer!!.currentWindowIndex)
+        outState.putLong("playback_position", exoPlayer!!.currentPosition)
 
-        updateTrackSelectorParameters()
 
-
-        outState.putBundle(
-            KEY_TRACK_SELECTION_PARAMETERS,
-            trackSelectionParameters!!.toBundle()
-        )
-        outState.putBoolean(
-            KEY_AUTO_PLAY,
-            startAutoPlay
-        )
-        outState.putInt(
-            KEY_ITEM_INDEX,
-            startItemIndex
-        )
-        outState.putLong(
-            KEY_POSITION,
-            startPosition
-        )
-        // saveServerSideAdsLoaderState(outState)
     }
 
 

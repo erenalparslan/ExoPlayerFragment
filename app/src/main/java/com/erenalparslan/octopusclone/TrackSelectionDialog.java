@@ -112,7 +112,7 @@ public final class TrackSelectionDialog extends DialogFragment {
         R.string.track_selection_title,
         player.getCurrentTracks(),
         player.getTrackSelectionParameters(),
-        /* allowAdaptiveSelections= */ true,
+        /* allowAdaptiveSelections= */ false,
         /* allowMultipleOverrides= */ false,
         player::setTrackSelectionParameters,
         onDismissListener);
